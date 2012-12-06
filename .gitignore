@@ -1,5 +1,6 @@
 *~
 .*
+_*
 target/
 pig_*.log
 !.gitignore
