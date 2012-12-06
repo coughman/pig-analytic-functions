@@ -13,7 +13,7 @@ import org.apache.pig.impl.logicalLayer.FrontendException;
 import org.apache.pig.impl.logicalLayer.schema.Schema;
 import org.apache.pig.impl.logicalLayer.schema.Schema.FieldSchema;
 
-public class RowNumber extends EvalFunc<DataBag> implements Accumulator<DataBag>{
+public class RowNumber extends EvalFunc<Object> implements Accumulator<DataBag>{
 	
 	long rowNumber = 0;
 	
@@ -24,10 +24,24 @@ public class RowNumber extends EvalFunc<DataBag> implements Accumulator<DataBag>
 	static TupleFactory tupleFactory = TupleFactory.getInstance();
 	
 	@Override
-	public DataBag exec(Tuple input) throws IOException {
+	public Object exec(Tuple input) throws IOException {
+
 		if (input == null) return null;
-		
-		DataBag inputBag = (DataBag)input.get(0);
+				
+		if (input instanceof DataBag)
+			return exec((DataBag)input.get(0));
+		else {
+			return new Long(++rowNumber);
+		}	   
+	}
+
+	/**
+	 * Exec method to handle a bag
+	 * The return results will be a bag of row numbers
+	 * @param inputBag
+	 * @return
+	 */
+	private DataBag exec(DataBag inputBag) {
 	    if(inputBag.size() == 0) {
 	    	return null;
 	    }
@@ -39,10 +53,9 @@ public class RowNumber extends EvalFunc<DataBag> implements Accumulator<DataBag>
 			outBag.add(outputTuple);						
 		}
 
-		return outBag;
+		return outBag;		
 	}
-
-
+	
 	@Override
 	public void accumulate(Tuple input) throws IOException {
 		DataBag inputBag = (DataBag)input.get(0);	    
