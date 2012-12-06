@@ -1,0 +1,5 @@
+*~
+.*
+target/
+pig_*.log
+!.gitignore

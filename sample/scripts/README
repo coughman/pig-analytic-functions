@@ -1,0 +1,20 @@
+The sample directory contains sample test data and a set of Pig Latin scripts to invoke analytic funtions on the data set.
+
+To run scripts in local mode:
+- cd to sample directory (the directory containing this README file)
+- pig -x local <script>
+- example: pig -x local rank.pig
+
+Note: the scripts *WITHOUT* the "_mr" suffix in the names are designed to be run in pig local mode only, so remember to use "-x local" with pig to invoke the scripts.
+
+To run scripts in mapreduce mode:
+- Prerequisite: make sure a cluster is up and running
+- cd to sample/scripts directory
+- run "pig prepare_multifile_input.pig" to set up input data on HDFS.  You just need to run it once for all *_mr.pig scripts to work
+
+Pig UDF in mapreduce mode:
+- For the *_mr.pig scripts, just run them as "pig <script_name>"
+
+Java Mapreduce:
+- there are *_mr shell scripts (e.g. rank_mr.sh)  Just invoke it and watch the MR job results.
+- For java MR jobs, the output is in output directory on HDFS.  Check the results by running 'hadoop fs -cat output/part-r-00000'
