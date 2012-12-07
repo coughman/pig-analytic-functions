@@ -41,6 +41,12 @@ public class DenseRank extends EvalFunc<DataBag> {
 	    for (Tuple t : inputBag) {
 	    	Object o = t.get(0);
 	    	
+	    	if (o == null)
+	    	{
+	    		getLogger().warn("encountered null object in tuple: " + t);
+	    		continue;
+	    	}
+	    	
 			if (!o.equals(lastObject))
 			{
 				lastObject = o;
