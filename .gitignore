@@ -3,4 +3,5 @@
 _*
 target/
 pig_*.log
+derby.log
 !.gitignore
