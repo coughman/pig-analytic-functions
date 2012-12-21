@@ -11,3 +11,5 @@ Functions:
 - Row Number
 - Rank
 - Dense Rank
+
+In addition, Rank and Dense Rank are also implemented with Hadoop MapReduce API (see com.cloudera.sa.mr package).
